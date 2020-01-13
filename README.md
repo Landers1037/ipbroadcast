@@ -1,11 +1,11 @@
 # ipbroadcast
 基于web设计的智能ip广播系统
 
-# 设计要求
+## 设计要求
 
 设计一个IP广播系统应采用集中式管理模式，在校园设立广播系统集成服务器，充分利用校园网络将各个区域的广播音频终端连接起来，组成一套数字化的网络广播系统。在系统服务器统一控制IP广播的播放内容，播放时间，定时上电及下电 。
 
-# 需求环境
+## 需求环境
 
 - Flask构造的web后端服务，实现底层的api需求
 - 使用vue进行前端界面设计
@@ -13,7 +13,7 @@
 - 对前后端合并完成总体设计
 - Jquery，bootstrap等前端技术
 
-# 目标
+## 目标
 
 （1）研究提供的IP广播PCBA控制板及其配套的SDK包解读，实现HTML/JavaScript对SDK包的API函数调用。
 
@@ -29,19 +29,54 @@
 
 （7）广播网络管理系统具有日志功能，可以记录数据推送的时间等信息。
 
-# 设计思路
+## 设计思路
 
 1. 使用Flask完成整个后端的设计，设计需求的api与SDK进行对接。使用Flask-Script进行项目控制，使用Flask-migrate进行数据库迁移工作，使用Flask-Restful完成api的设计，对于vue前端的调用使用flask-cors完成跨域需求
-2. 对于登录需求使用Flask-Login进行用户登录的控制
+2. ~~对于登录需求使用Flask-Login进行用户登录的控制~~
 3. 使用Postgresql数据库完成数据的保存
 4. 建立全局的Debug函数，对出现的错误进行统计，并且按照时间保存为本地的.log文件以供分析
-5. 前端使用vue2.0开发，使用bootstrap完成css样式的美化
-6. 定时系统使用flask-apscheduler进行定时任务操作
+5. 前端使用vue2.0开发，使用bootstrap和elementUI完成css样式的美化
+6. 使用token方式完成用户的登录认证
 
-# 参考资料
+## 参考资料
 
 - Flask-Restful[文档](http://www.pythondoc.com/Flask-RESTful/quickstart.html)
 - Flask-Cors [文档](https://flask-cors.readthedocs.io/en/latest/)
 - VUE [文档](https://cn.vuejs.org/)
 - vue-cli [文档](https://cli.vuejs.org/zh/guide/cli-service.html)
 - bootstrap [文档](https://www.bootcss.com/)
+
+# 项目设计
+
+### 项目名称
+
+NMS(network management sys)网络广播管理系统
+
+### 项目依赖
+
+Python3.7,Flask,Vue@4.1.1
+
+**使用库**
+
+| 库               | 功能实现        |
+| ---------------- | --------------- |
+| flask-cors       | 跨域请求        |
+| flask-restful    | 设计restful api |
+| flask-script     | 管理falsk项目   |
+| flask-httpauth   | token认证       |
+| flask-migrate    | 数据库迁移      |
+| flask-sqlalchemy | 数据库映射      |
+| psycopg2         | 连接pgsql数据库 |
+| psutil           | 获取系统信息    |
+| functools        | 自定义log装饰器 |
+
+
+
+### 项目api文档
+
+[API for NMS](./api/nmsAPI.md)
+
+###  项目wiki
+
+[Wiki for NMS](https://github.com/Landers1037/ipbroadcast/wiki)
+
