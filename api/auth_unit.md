@@ -110,7 +110,7 @@
 
     ```json
     {
-    	isalive":"yes"
+    	"isalive":"yes"
     }
     ```
 
@@ -132,7 +132,7 @@
 
     ```json
     {
-    	"user":'root'
+    	"user":"root"
     }
     ```
 
