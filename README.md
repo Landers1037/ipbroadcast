@@ -1,82 +1,124 @@
-# ipbroadcast
-基于web设计的智能ip广播系统
+# nms
+前后端分离式网络广播管理系统设计
 
-## 设计要求
+[项目介绍](./intro.md)
 
-设计一个IP广播系统应采用集中式管理模式，在校园设立广播系统集成服务器，充分利用校园网络将各个区域的广播音频终端连接起来，组成一套数字化的网络广播系统。在系统服务器统一控制IP广播的播放内容，播放时间，定时上电及下电 。
+## 依赖
 
-## 需求环境
+1. Vue CLI@4.1.1
+2. Python Flask
+3. flask-httpauth,falsk-restful,falsk-sqlalchemy,functoools,psutil,psycopg2,flask-migrate,flask-scripts,flask-cors
 
-- Flask构造的web后端服务，实现底层的api需求
-- 使用vue进行前端界面设计
-- 使用PCBA提供的javascript SDK进行功能设计，完成整个管理系统的设计
-- 对前后端合并完成总体设计
-- Jquery，bootstrap等前端技术
+## 版本
 
-## 目标
+- v1.08
+- v1.13
+- v1.16
+- v1.29
 
-（1）研究提供的IP广播PCBA控制板及其配套的SDK包解读，实现HTML/JavaScript对SDK包的API函数调用。
+## 迭代信息
 
-（2）研究Python、Node.js、HTML5/JavaScript/CSS、vue.js及MySql数据库等，实现一个基于智慧教室的IP广播管理系统。
+- ### v1.08
 
-（3）设计本课题的教室IP广播网络管理系统中，管理员通过自己的学号或者工号登录系统，并实现权限的分离和管理。
+使用flask-restful构建基础api后端服务框架，使用requests库来请求硬件服务器的web服务，完成服务器后端和硬件后端的分离
 
-（4）IP广播网络管理系统，支持系统定时播放，临时插播、实时监控音频终端的系统情况。
+- ### v1.13
 
-（5）建立实时数据同步的监控机制，及时发现数据传输中存在的问题，并通过技术手段将告警知会管理人员。
+使用vue-cli完成项目的构建，添加基本的登录页面，关于页面，控制台页面
 
-（6）设计为web网站形式，实现前后端分离，前端用vue.js框架，后端实现对数据库的操作并暴露相关的API。
+~~使用flask-login进行用户的身份验证~~
 
-（7）广播网络管理系统具有日志功能，可以记录数据推送的时间等信息。
+在后期的测试中发现，flask-restful是无状态的api，不能保持请求时的用户状态所以不能使用flask-login
 
-## 设计思路
+- ### v1.16
 
-1. 使用Flask完成整个后端的设计，设计需求的api与SDK进行对接。使用Flask-Script进行项目控制，使用Flask-migrate进行数据库迁移工作，使用Flask-Restful完成api的设计，对于vue前端的调用使用flask-cors完成跨域需求
-2. ~~对于登录需求使用Flask-Login进行用户登录的控制~~
-3. 使用Postgresql数据库完成数据的保存
-4. 建立全局的Debug函数，对出现的错误进行统计，并且按照时间保存为本地的.log文件以供分析
-5. 前端使用vue2.0开发，使用bootstrap和elementUI完成css样式的美化
-6. 使用token方式完成用户的登录认证
+| 前端             | 后端          |
+| ---------------- | ------------- |
+| 添加登录页面验证 | cors跨域      |
+| 添加控制台信息   | 设计token验证 |
+| 添加API文档指引  | 重写restful   |
+| 使用element美化  |               |
 
-## 参考资料
+#### 登录认证
 
-- Flask-Restful[文档](http://www.pythondoc.com/Flask-RESTful/quickstart.html)
-- Flask-Cors [文档](https://flask-cors.readthedocs.io/en/latest/)
-- VUE [文档](https://cn.vuejs.org/)
-- vue-cli [文档](https://cli.vuejs.org/zh/guide/cli-service.html)
-- bootstrap [文档](https://www.bootcss.com/)
+全局使用token请求头信息的方式完成验证，在前端使用axios发送登录请求数据，接收返回的json数据提取内部的token信息并保存在vuex内存中，每一次的请求发送时都会在请求头中添加token信息发送至后台验证。
 
-# 项目设计
+修改axios拦截器在请求头上添加内存里存储的token信息。设置response里的401未授权响应直接跳转至登录页面。
 
-### 项目名称
+后端：使用flask-httpauth的token验证装饰器，每次登录时生成token并设置token的过期时间。在收到api的请求时先验证身份再返回数据。
 
-NMS(network management sys)网络广播管理系统
+#### 控制台信息
 
-### 项目依赖
+前端：设计一个控制台用于查看后台的信息，主要查看后端的api地址，当前的登录用户状态，后端的硬件服务器状态，当前运行服务的内存cpu占用信息
 
-Python3.7,Flask,Vue@4.1.1
+后端：使用psutil获取系统的占用信息，从数据库获取当前的登录用户信息并返回
 
-**使用库**
+#### API文档
 
-| 库               | 功能实现        |
-| ---------------- | --------------- |
-| flask-cors       | 跨域请求        |
-| flask-restful    | 设计restful api |
-| flask-script     | 管理falsk项目   |
-| flask-httpauth   | token认证       |
-| flask-migrate    | 数据库迁移      |
-| flask-sqlalchemy | 数据库映射      |
-| psycopg2         | 连接pgsql数据库 |
-| psutil           | 获取系统信息    |
-| functools        | 自定义log装饰器 |
+添加后端api的文档在线阅读页面，使用marked .js进行前端渲染
+
+#### 美化
+
+使用element UI的组件库进行页面的美化，实现页面的简单美观。同时使用部分自带的动画库进行过渡动画的渲染
+
+- ### v1.29
+
+重新设计了dashboard操作面板界面，布局更合理，菜单显示更清晰
+
+添加了echarts绘制的后端服务监控信息和api请求次数统计
+
+设计了生命周期更长的路由，用于返回时保存信息
+
+添加了切换用户页面，可以再操作面板方便地切换用户
+
+全局统一了配色样式
+
+| 组件         | 配色     |
+| ------------ | -------- |
+| 主体色       | #f5f5f5  |
+| 主题强调色   | #409eff  |
+| 下拉菜单配色 | #426ab3  |
+| 警告按钮     | #f56c6c  |
+| 普通按钮     | \#909399 |
+
+## 界面预览
+
+登录页面
+
+![login](./demo/login.jpg)
 
 
 
-### 项目api文档
+关于页面
 
-[API for NMS](./api/nmsAPI.md)
+![about](./demo/about.jpg)
 
-###  项目wiki
 
-[Wiki for NMS](https://github.com/Landers1037/ipbroadcast/wiki)
 
+控制台
+
+![console](./demo/console.jpg)
+
+
+
+在线文档
+
+![doc](./demo/doc.jpg)
+
+
+
+操作面板
+
+![dash](./demo/dashboard.jpg)
+
+
+
+运行日志
+
+![log](./demo/log.jpg)
+
+
+
+监控后台
+
+![sys](./demo/sys.jpg)
