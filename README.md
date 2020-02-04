@@ -1,6 +1,8 @@
 # nms
 前后端分离式网络广播管理系统设计
 
+<a href="./read.md" style="font-size: 36px;">点击这里查看目前进度</a>
+
 [项目介绍](./intro.md)
 
 ## 依赖
