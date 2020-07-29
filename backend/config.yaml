@@ -1,0 +1,46 @@
+Server:
+  url: 'http://127.0.0.1:5000'
+  port: '5000' #运行端口
+  db: 'sqlite:///E:\pyproject\bysj\testDB.db' #数据库地址
+  dbuser: 'root' #数据库用户名
+  dbpass: '123456' #数据库密码
+  dbaddress: '127.0.0.1' #数据库IP地址
+  dbport: '3306' #数据库密码
+  dbbase: 'nms' #使用的数据库
+  secret_key: 'TGFuZGVycyBIVVNUIGZpbmFsIHByb2plY3Q=' #crsf密钥
+  expiration: 600 #token过期时间
+
+Log:
+  logger: false #是否开启日志功能
+  logpath: ''
+  apilog: false
+
+Api:
+  url: 'http://127.0.0.1:8000'
+  port: '8000'
+
+Admin:
+  rootname: 'root' #管理员账户，注意系统内定无法删除
+  password: '123456' #密码
+
+Autowork:
+  autolog: false #自动保存日志
+  systemlog: false #系统状态记录
+  time: '6h' #定时间隔
+
+#状态码
+Code:
+  logged: 1 #已登录
+  anonymous: 0 #匿名用户
+  auth_err: 2 #验证错误
+  good_res: 666 #正确响应
+  bad_res: 555 #错误响应
+  lost_con: 404 #丢失硬件服务器连接
+
+Copyright:
+  author: 'Landers'
+  usercode: 'U201613543'
+  school: 'HUST华中科技大学'
+  github: 'https://github.com/landers1037'
+  email: 'liaorenj@gmail.com'
+  project: 'IPbroadcast'

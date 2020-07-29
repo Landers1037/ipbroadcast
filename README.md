@@ -1,15 +1,35 @@
 # nms
 前后端分离式网络广播管理系统设计
 
+毕业设计 华中科技大学
+
+最终得分: 94
+
+作者: Landers
+
 <a href="./read.md" style="font-size: 36px;">点击这里查看目前进度</a>
 
 [项目介绍](./intro.md)
 
+## 源码
+
+该项目已全部完成
+
+参见**frontend**前端代码 **backend**后端代码
+
+最终效果示代码最终版本,本文档均为测试时的数据
+
 ## 依赖
 
 1. Vue CLI@4.1.1
+
 2. Python Flask
+
 3. flask-httpauth,falsk-restful,falsk-sqlalchemy,functoools,psutil,psycopg2,flask-migrate,flask-scripts,flask-cors
+
+4. > 注意:本项目需要对应的硬件广播设备和服务器支持,所有的硬件操作由后端Flask和硬件服务器通信完成
+    >
+    > 硬件服务器为试用版本,测试数据可能与正式使用效果有差别
 
 ## 版本
 
